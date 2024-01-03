@@ -1,0 +1,51 @@
+{% extends 'film/base.html' %}
+{% load tz %}
+{% block content %}
+
+    <h1>{{title}}</h1>
+    {% timezone "Europe/Moscow" %}
+    <p class="p-clock">{% now "d.m.Y H:i" %}</p>
+    <div class="clock"></div>
+{% endtimezone %}
+<ul class="list-films">
+    {% for p in posts %}
+    
+    <li>
+
+        {% if p.photo %}
+        <p class="p-img"><img class="img-film-main" src="{{p.photo.url}}"></p>
+        {% endif %}
+        <h2><a href="{{p.get_absolute_url }}">{{p.title}}</a></h2>
+        <table class="film-info" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+            <td width="15%">Год производства</td> <td>{{p.production_year}}</td>
+                </tr>
+            <tr>
+            <td>Режиссер</td> <td>{{p.director}}</td>
+                </tr>
+            <tr>
+            <td>Время</td> <td>{{p.film_duration}}</td>
+                </tr>
+            <tr>
+                <td>Рейтинг</td> {% if p.rating >= 4 %}
+                <td style="color:rgb(0,255,0); font-weight: bold; font-size:20px;">{{p.rating|default_if_none:"-"|floatformat}}</td>
+                {% elif p.rating >= 3 %}
+                <td style="color: rgb(255,253,0); font-weight: bold; font-size: 20px;">{{p.rating|default_if_none:"-"|floatformat}}</td>
+                {% elif p.rating >= 2 %}
+                <td style="color: rgb(255,138,0); font-weight: bold; font-size: 20px;">{{p.rating|default_if_none:"-"|floatformat}}</td>
+                {% elif p.rating >= 1 %}
+                <td style="color: rgb(255,0,0); font-weight: bold; font-size: 20px;">{{p.rating|default_if_none:"-"|floatformat}}</td>
+                {% else %}
+                <td style="color: rgb(0,0,0); font-weight: bold; font-size: 20px;">{{p.rating|default_if_none:"-"|floatformat}}</td>
+                {% endif %}
+            </tr>
+            <tr>
+            <td colspan="2">Сюжет {{p.plot|linebreaks}}</td>
+                </tr>
+        </table>
+        
+    </li>
+    
+    {% endfor%}
+</ul>
+{% endblock content %}

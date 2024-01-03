@@ -1,0 +1,18 @@
+{% extends 'film/base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    <p><label class="form-label" for="{{ form.comment.id_for_label }}">{{form.comment.label}} </label>{{ form.comment }}</p>
+    <div class="form-error">{{ form.comment.errors }}</div>
+    {% for radio in form.mark %}
+    <div class="myradio">
+        {{ radio.tag }}
+        <label for="{{ radio.id_for_label }}">
+            {{ radio.choice_label }}
+        </label>
+    </div>
+    {% endfor %}
+    <button class="form-button" type="submit" value="Update">Изменить</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends 'film/base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Вы действительно хотите удалить рецензию к фильму {{post.title}}</p>
+    <button class="form-button" type="submit" value="Confirm">Удалить</button>
+</form>
+{% endblock content %}

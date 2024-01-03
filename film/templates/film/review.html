@@ -1,0 +1,23 @@
+{% extends 'film/base.html' %}
+{% block content %}
+<ul class="list-review">
+    {% for r in reviews %}
+    <li>
+        <ul class="review">
+            <li><a href="{{r.get_absolute_url}}">{{r.film_id}}</a></li>
+            <li><a href="{% url 'delete_review' r.film.slug %}">Удалить</a></li>
+            <li class="review-comment">{{r.comment}}</li>
+            {% if r.mark >= 4 %}
+            <li style="background-color: rgb(0,255,0);">Оценка:{{r.mark}}</li>
+            {% elif r.mark >= 3 %}
+            <li style="background-color: rgb(255,253,0);">Оценка:{{r.mark}}</li>
+            {% elif r.mark >= 2 %}
+            <li style="background-color: rgb(255,138,0);">Оценка:{{r.mark}}</li>
+            {% elif r.mark >= 1 %}
+            <li style="background-color: rgb(255,0,0);">Оценка:{{r.mark}}</li>
+            {% endif %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
